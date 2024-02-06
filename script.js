@@ -91,28 +91,25 @@ const perguntas = [
     },
 ];
 
-const quiz = document.querySelector('#quiz');
-        const template = document.querySelector('#quiz-template');
+const quiz = document.querySelector('#quiz')
+const template = document.querySelector('template')
+
+for(const item of perguntas){
+    const quizItem = template.content.cloneNode(true)
+    quizItem.querySelector('h3').textContent = item.pergunta
+    
+    
+
+    for(let resposta of item.respostas){
+        const dt = quizItem.querySelector('dl dt').cloneNode(true)
+        dt.querySelector('span').textContent = resposta
+        dt.querySelector('input').
 
 
-for (const item of perguntas) {
-            const quizItem = template.content.cloneNode(true);
-            quizItem.querySelector('h3').textContent = item.pergunta;
+        quizItem.querySelector('dl').appendChild(dt)
+    }
 
-            for (let i = 0; i < item.respostas.length; i++) {
-                const dt = document.createElement('dt');
-                const input = document.createElement('input');
-                const span = document.createElement('span');
+    quizItem.querySelector('dl dt').remove()
 
-                input.type = 'radio';
-                input.name = 'item';
-                input.value = i;
-                span.textContent = item.respostas[i];
-
-                dt.appendChild(input);
-                dt.appendChild(span);
-                quizItem.querySelector('dl').appendChild(dt);
-            }
-
-            quiz.appendChild(quizItem);
-        }
+    quiz.appendChild(quizItem)
+}
